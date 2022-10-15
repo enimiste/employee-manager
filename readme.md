@@ -6,16 +6,19 @@
 - VsCode for angular
 - Java 17
 - Angular 14
+- Typescript
 - Spring boot 2.7
+- Spring web
+- Spring data jpa
 - Maven
 - Terminal
 - MySQL 8.x
 - Cors configuration
 - HeidSQL (Mysql console GUI)
 - Fake data :
-    - https://www.mockaroo.com/
-    - https://lorem.space/
-    - https://picsum.photos/
+  - https://www.mockaroo.com/
+  - https://lorem.space/
+  - https://picsum.photos/
 
 ## Demo :
 
