@@ -14,11 +14,18 @@ export class AppComponent implements OnInit {
   public editEmployee: Employee | null = null;
   public deleteEmployee: Employee | null = null;
   public keyword: string = "";
+  public colorHex: number = 0x654321;
+  public color: string = "#" + this.colorHex;
 
   constructor(private service: EmployeeService){}
 
   ngOnInit(): void {
     this.refreshEmployeesList();
+  }
+
+  public doRandomColor():void{
+    this.colorHex = Math.floor(Math.random()*0xffffff + this.colorHex) % 0xffffff;
+    this.color = "#" + this.colorHex.toString(16);
   }
 
   private refreshEmployeesList(): void {
@@ -27,7 +34,7 @@ export class AppComponent implements OnInit {
 
   private loadEmployees(kwd: string | null): void {
     this.service.getEmployees(kwd)
-    .subscribe((items: Employee[]) => this.employees=items, (err: HttpErrorResponse) => alert(err.message));
+    .subscribe((items: Employee[]) => this.employees=items, (err: HttpErrorResponse) => console.error(err.message));
   }
 
   public onOpenModal(employee: Employee | null, action: string): void {
@@ -55,11 +62,11 @@ export class AppComponent implements OnInit {
       this.service.addEmployee(form.value)
       .subscribe(() => {
         document.getElementById('add-employee-form')?.click();
-        alert("Added successfully");
+        console.info("Added successfully");
         this.refreshEmployeesList();
         form.reset();
       }, (err:HttpErrorResponse) => {
-        alert(err.message);
+        console.error(err.message);
         form.reset();
       });
   }
@@ -68,17 +75,17 @@ export class AppComponent implements OnInit {
     this.service.updateEmployee(employee)
     .subscribe(() => {
       document.getElementById('update-employee-form')?.click();
-      alert("Updated successfully");
+      console.info("Updated successfully");
       this.refreshEmployeesList();
-    }, (err:HttpErrorResponse) => alert(err.message));
+    }, (err:HttpErrorResponse) => console.error(err.message));
   }
 
   public onDeleteEmployee(employeeId: number | undefined): void {
     if(employeeId != undefined)
       this.service.deleteEmployee(employeeId)
       .subscribe(() => {
-        alert("Deleted successfully");
+        console.info("Deleted successfully");
         this.refreshEmployeesList();
-      }, (err:HttpErrorResponse) => alert(err.message));
+      }, (err:HttpErrorResponse) => console.error(err.message));
   }
 }
